@@ -1,6 +1,8 @@
 // pages/index.js
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import StoryCard from "../components/StoryCard";
 import stories from "../data/stories.json";
 
@@ -11,51 +13,64 @@ const MapComponent = dynamic(() => import("../components/Map"), {
 });
 
 // Custom hook for handling scroll events
-const useScrollHandler = (storiesLength, activeStoryIndex, setActiveStoryIndex) => {
+const useScrollHandler = (storiesLength, setActiveStoryIndex) => {
+  const observers = stories.map((_, index) => {
+    const { ref, inView } = useInView({
+      threshold: 0.5,
+      triggerOnce: false,
+    });
+    return { ref, inView, index };
+  });
+
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const storyHeight = window.innerHeight;
-      const newIndex = Math.floor(scrollPosition / storyHeight);
+    const activeObserver = observers.find((obs) => obs.inView);
+    if (activeObserver) {
+      setActiveStoryIndex(activeObserver.index);
+    }
+  }, [observers.map((obs) => obs.inView)]);
 
-      if (newIndex !== activeStoryIndex && newIndex < storiesLength) {
-        setActiveStoryIndex(newIndex);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [storiesLength, activeStoryIndex, setActiveStoryIndex]); // Add activeStoryIndex to dependencies
+  return observers;
 };
 
 export default function Home() {
   const [activeStoryIndex, setActiveStoryIndex] = useState(0);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
-  useScrollHandler(stories.length, activeStoryIndex, setActiveStoryIndex);
-
+  const observers = useScrollHandler(stories.length, setActiveStoryIndex);
   const activeStory = stories[activeStoryIndex] || {};
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <div className="min-h-screen">
+      {/* Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-blue-500 origin-left z-50"
+        style={{ scaleX }}
+      />
 
       {/* Fixed Map Container */}
       <div className="fixed top-0 left-0 w-full h-screen z-0">
         <MapComponent story={activeStory} />
       </div>
 
-
-
       {/* Scrollable Stories Container */}
-      <div className="relative z-10 w-full h-screen">
-        {stories.map((story, index) => (
-          <div
-            key={story.id}
-            className={`story-section ${index === activeStoryIndex ? "active" : ""}`}
-            style={{ height: "100vh", padding: "20px" }}
-          >
-            <StoryCard story={activeStory} />
-          </div>
-        ))}
+      <div className="relative z-10">
+        {stories.map((story, index) => {
+          const observer = observers[index];
+          return (
+            <div
+              key={story.id}
+              ref={observer.ref}
+              className="story-section min-h-screen flex items-center"
+            >
+              <StoryCard story={story} isActive={index === activeStoryIndex} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
