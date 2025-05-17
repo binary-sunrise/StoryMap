@@ -1,18 +1,21 @@
-
 [
   {
     "id": 1,
-    "title": "Story 1",
-    "description": "This is an amazing place in San Francisco.",
-    "location": { "lat": 37.7749, "lng": -122.4194 },
-    "zoom": 10,
-    "pitch": 45,
-    "bearing": 0,
-    "countries": ["USA"],
+    "title": "Arctic Sea Ice Decline",
+    "description": "The Arctic is warming twice as fast as the global average. In September 2024, sea ice extent reached its second-lowest level on record, threatening polar ecosystems and indigenous communities.",
+    "location": { "lat": 78.2186, "lng": -76.1425 },
+    "zoom": 4,
+    "pitch": 60,
+    "bearing": 15,
+    "countries": ["GRL"],
     "arcdata": [
       {
-        "source": [-122.4194, 37.7749],
-        "target": [-122.2437, 37.7749]
+        "source": [-76.1425, 78.2186],
+        "target": [-68.4932, 76.5403]
+      },
+      {
+        "source": [-76.1425, 78.2186],
+        "target": [-85.3214, 76.1234]
       }
     ],
     "style": {
@@ -23,17 +26,21 @@
   },
   {
     "id": 2,
-    "title": "Story 4",
-    "description": "A wonderful experience in Sweden.",
-    "location": { "lat": 62.0522, "lng": 18.2437 },
-    "zoom": 8,
-    "pitch": 35,
-    "bearing": 15,
-    "countries": ["SWE"],
+    "title": "Great Barrier Reef Bleaching",
+    "description": "Rising ocean temperatures have caused unprecedented coral bleaching events. In 2024, over 60% of the Great Barrier Reef experienced severe bleaching, devastating marine ecosystems.",
+    "location": { "lat": -18.2871, "lng": 147.6992 },
+    "zoom": 7,
+    "pitch": 45,
+    "bearing": 30,
+    "countries": ["AUS"],
     "arcdata": [
       {
-        "source": [18.2437, 62.0522],
-        "target": [18.3, 62.1]
+        "source": [147.6992, -18.2871],
+        "target": [146.8234, -19.1234]
+      },
+      {
+        "source": [147.6992, -18.2871],
+        "target": [148.5432, -17.8765]
       }
     ],
     "style": {
@@ -44,14 +51,23 @@
   },
   {
     "id": 3,
-    "title": "Story 3",
-    "description": "A wonderful experience in Los Angeles.",
-    "location": { "lat": 32.0522, "lng": -118.2437 },
-    "zoom": 10,
-    "pitch": 35,
-    "bearing": 15,
-    "countries": ["USA"],
-    "arcdata": [],
+    "title": "Amazon Rainforest Deforestation",
+    "description": "Deforestation rates hit critical levels in 2024, with over 10,000 square kilometers lost. This massive carbon sink is approaching a tipping point that could transform it from a carbon absorber to a carbon emitter.",
+    "location": { "lat": -3.4653, "lng": -62.2159 },
+    "zoom": 8,
+    "pitch": 55,
+    "bearing": 45,
+    "countries": ["BRA"],
+    "arcdata": [
+      {
+        "source": [-62.2159, -3.4653],
+        "target": [-63.1234, -4.5678]
+      },
+      {
+        "source": [-62.2159, -3.4653],
+        "target": [-61.3456, -2.7890]
+      }
+    ],
     "style": {
       "top": "50px",
       "bottom": "0px",
@@ -60,17 +76,121 @@
   },
   {
     "id": 4,
-    "title": "Story 4",
-    "description": "A wonderful experience in Los Angeles.",
-    "location": { "lat": 62.0522, "lng": 18.2437 },
-    "zoom": 12,
-    "pitch": 75,
-    "bearing": 15,
-    "countries": ["Sweden"],
+    "title": "Greenland Ice Sheet Melting",
+    "description": "The Greenland ice sheet lost a record 532 billion tons of ice in 2024. This massive melting contributes significantly to global sea level rise, threatening coastal communities worldwide.",
+    "location": { "lat": 67.0122, "lng": -49.7237 },
+    "zoom": 6,
+    "pitch": 65,
+    "bearing": 20,
+    "countries": ["GRL"],
     "arcdata": [
       {
-        "source": [18.2437, 62.0522],
-        "target": [18.3, 62.1]
+        "source": [-49.7237, 67.0122],
+        "target": [-51.2345, 68.1234]
+      },
+      {
+        "source": [-49.7237, 67.0122],
+        "target": [-48.5678, 66.4321]
+      }
+    ],
+    "style": {
+      "top": "50px",
+      "bottom": "0px",
+      "left": "20px"
+    }
+  },
+  {
+    "id": 5,
+    "title": "Mediterranean Heat Waves",
+    "description": "Record-breaking heat waves in Southern Europe reached 48.8°C (119.8°F) in 2024, causing widespread wildfires, drought, and crop failures across the region.",
+    "location": { "lat": 37.5079, "lng": 15.0830 },
+    "zoom": 7,
+    "pitch": 50,
+    "bearing": 25,
+    "countries": ["ITA"],
+    "arcdata": [
+      {
+        "source": [15.0830, 37.5079],
+        "target": [14.2345, 36.7890]
+      },
+      {
+        "source": [15.0830, 37.5079],
+        "target": [16.1234, 38.2345]
+      }
+    ],
+    "style": {
+      "top": "50px",
+      "bottom": "0px",
+      "left": "20px"
+    }
+  },
+  {
+    "id": 6,
+    "title": "Maldives Rising Seas",
+    "description": "With 80% of its 1,190 islands less than 1 meter above sea level, the Maldives faces existential threat from rising seas. Several islands have already begun implementing floating infrastructure projects.",
+    "location": { "lat": 4.1755, "lng": 73.5093 },
+    "zoom": 9,
+    "pitch": 40,
+    "bearing": 15,
+    "countries": ["MDV"],
+    "arcdata": [
+      {
+        "source": [73.5093, 4.1755],
+        "target": [73.4567, 4.0123]
+      },
+      {
+        "source": [73.5093, 4.1755],
+        "target": [73.6789, 4.3456]
+      }
+    ],
+    "style": {
+      "top": "50px",
+      "bottom": "0px",
+      "left": "20px"
+    }
+  },
+  {
+    "id": 7,
+    "title": "California Megadrought",
+    "description": "The American West experienced its worst drought in 1,200 years. Lake Powell reached historic lows, threatening water supply and hydroelectric power for millions.",
+    "location": { "lat": 36.9375, "lng": -111.4858 },
+    "zoom": 8,
+    "pitch": 70,
+    "bearing": 35,
+    "countries": ["USA"],
+    "arcdata": [
+      {
+        "source": [-111.4858, 36.9375],
+        "target": [-112.3456, 37.2345]
+      },
+      {
+        "source": [-111.4858, 36.9375],
+        "target": [-110.6789, 36.5432]
+      }
+    ],
+    "style": {
+      "top": "50px",
+      "bottom": "0px",
+      "left": "20px"
+    }
+  },
+  {
+    "id": 8,
+    "title": "Siberian Permafrost Thaw",
+    "description": "Rapid permafrost thaw in Siberia is releasing ancient methane and carbon dioxide, creating a dangerous feedback loop in global warming. In 2024, several new methane craters were discovered.",
+    "location": { "lat": 67.4897, "lng": 86.7219 },
+    "zoom": 6,
+    "pitch": 55,
+    "bearing": 25,
+    "countries": ["RUS"],
+    "arcdata": [
+      {
+        "source": [86.7219, 67.4897],
+        "target": [85.4321, 66.7890]
+      },
+      {
+        "source": [86.7219, 67.4897],
+        "target": [87.9876, 68.2345]
       }
     ],
     "style": {
