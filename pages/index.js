@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import StoryCard from "../components/StoryCard";
-import stories from "../data/stories.json";
+import stories from "../public/data/stories.json"; // Import stories data
 
 // Dynamically import MapComponent with SSR disabled
 const MapComponent = dynamic(() => import("../components/Map"), {
