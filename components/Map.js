@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import StaticMap from "react-map-gl/mapbox";
+import { Map as MapGL, Source, Layer } from "react-map-gl/mapbox";
 import DeckGL from "@deck.gl/react";
-import { ArcLayer, GeoJsonLayer } from "@deck.gl/layers";
+import { ArcLayer } from "@deck.gl/layers";
 import { FlyToInterpolator } from '@deck.gl/core';
 import { easeCubic } from 'd3-ease';
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -47,12 +47,12 @@ const MapComponent = ({ story }) => {
   useEffect(() => {
     if (story) {
       // Fetch country boundaries based on the story's countries
-      fetch("../data/countries.geojson")
+      fetch("/data/countries8.geojson")
         .then((response) => response.json())
         .then((data) => {
           // Filter GeoJSON features based on the story's countries
           const filteredFeatures = data.features.filter((feature) =>
-            story.countries.includes(feature.properties.ISO_A3)
+            story.countries.includes(feature.properties.adm0_a3)
           );
           setCountryData({
             type: "FeatureCollection",
@@ -75,21 +75,23 @@ const MapComponent = ({ story }) => {
     fadeAmount: transitioning ? 0.5 : 1
   });
 
-  const countryLayer = new GeoJsonLayer({
-    id: "country-layer",
-    data: countryData,
-    filled: true,
-    stroked: true,
-    getFillColor: [0, 128, 255, 100],
-    getLineColor: [0, 0, 255],
-    getLineWidth: 2,
-    lineWidthMinPixels: 1,
-    transitions: {
-      getFillColor: 1000,
-      getLineColor: 1000
+  const countryFillLayer = {
+    id: 'country-fills',
+    type: 'fill',
+    paint: {
+      'fill-color': 'rgba(0, 128, 255, 0.4)',
+      'fill-opacity': 0.4
     }
-  });
+  };
 
+  const countryLineLayer = {
+    id: 'country-borders',
+    type: 'line',
+    paint: {
+      'line-color': 'rgba(0, 0, 255, 0.8)',
+      'line-width': 2
+    }
+  };
   return (
     <>
       <DeckGL
@@ -97,23 +99,32 @@ const MapComponent = ({ story }) => {
         onViewStateChange={onViewStateChange}
         controller={true}
         layers={[
-          ...(viewState.zoom > 5 ? [arcLayer] : []),
-          ...(countryData ? [countryLayer] : []),
+          ...(viewState.zoom > 5 ? [arcLayer] : [])
         ]}
         style={{ pointerEvents: "none", zIndex: 1 }}
       >
-        <StaticMap
+        <MapGL
           ref={mapRef}
+          reuseMaps
+          mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
+          {...viewState}
           style={{
             width: "100vw",
             height: "100vh",
             position: "fixed",
             zIndex: 0,
           }}
-          mapStyle="mapbox://styles/mapbox/streets-v11"
+          mapStyle="mapbox://styles/mapbox/dark-v11"
           projection="globe"
-          mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-        />
+          terrain={{ source: 'mapbox-dem', exaggeration: 1.5 }}
+        >
+          {countryData && (
+            <Source type="geojson" data={countryData}>
+              <Layer {...countryFillLayer} />
+              <Layer {...countryLineLayer} />
+            </Source>
+          )}
+        </MapGL>
       </DeckGL>
     </>
   );
